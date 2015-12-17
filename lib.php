@@ -66,15 +66,15 @@ function block_ranking_get_students($limit = null) {
             AND a.roleid = :roleid
             AND c.instanceid = :courseid
             AND r.courseid = :crsid
-            ORDER BY r.points DESC, u.firstname ASC
-            LIMIT " . $limit;
+            ORDER BY r.points DESC, u.firstname ASC";
     $params['contextid'] = $context->id;
     $params['roleid'] = 5;
     $params['courseid'] = $COURSE->id;
     $params['crsid'] = $COURSE->id;
     $params['r_courseid'] = $COURSE->id;
 
-    $users = array_values($DB->get_records_sql($sql, $params));
+    $limitfrom = 0;
+    $users = array_values($DB->get_records_sql($sql, $params, $limitfrom, $limit));
 
     return $users;
 }
